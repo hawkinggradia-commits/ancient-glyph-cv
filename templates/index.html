@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Glyph Architect</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="background-mesh"></div>
+    
+    <main class="container">
+        <header class="glass-panel">
+            <h1>Epigraphic AI Core</h1>
+            <p>Upload a weathered inscription (e.g. Ashokan Brahmi) to autonomously decouple background rock texture, segment strokes, and mathematically cluster characters using DBSCAN over a ResNet-18 latent space.</p>
+        </header>
+
+        <section id="upload-section" class="glass-panel uploader">
+            <input type="file" id="file-input" accept="image/*" hidden>
+            <div id="drop-zone" class="drop-zone">
+                <div class="icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
+                <h3>Drag & Drop Inscription Image</h3>
+                <p>or click to browse files</p>
+            </div>
+            
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p class="pulse-text">Initiating Deep Learning Pipeline...</p>
+                <div class="progress-steps">
+                    <span id="step-1" class="step">1. Bilateral Filtering & CLAHE</span>
+                    <span id="step-2" class="step">2. Morphological Segmentation</span>
+                    <span id="step-3" class="step">3. ResNet-18 Feature Extraction</span>
+                    <span id="step-4" class="step">4. PCA + DBSCAN Clustering</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="results-section" class="hidden">
+            <h2 class="section-title">Pipeline Diagnostics</h2>
+            
+            <div class="diagnostics-grid">
+                <div class="glass-panel img-container">
+                    <h3>Raw Input</h3>
+                    <img id="res-raw" src="" alt="Raw Image">
+                </div>
+                <div class="glass-panel img-container">
+                    <h3>Adaptive Binarization</h3>
+                    <img id="res-bin" src="" alt="Binarized Matrix">
+                </div>
+            </div>
+            
+            <h2 class="section-title">Discovered Character Clusters (<span id="glyph-count">0</span> total glyphs)</h2>
+            <div id="clusters-container" class="clusters-grid">
+                <!-- Clusters rendered dynamically here -->
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
